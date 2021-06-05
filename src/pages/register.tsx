@@ -16,7 +16,7 @@ const Register: React.FC<registerProps> = ({}) => {
         console.log(values);
         }}
       >
-      {({values, handleChange}) => (
+      {( {isSubmitting} ) => (
         <Form>
           <InputField
             name="username"
@@ -34,6 +34,7 @@ const Register: React.FC<registerProps> = ({}) => {
           <Button
             type="submit"
             colorScheme="blue"
+            isLoading={isSubmitting}
             mt={4}
           >
             register
