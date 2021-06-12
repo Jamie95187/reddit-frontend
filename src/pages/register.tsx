@@ -35,6 +35,7 @@ const Register: React.FC<registerProps> = ({}) => {
             setErrors({
               username: "hey Im an error",
             })
+            console.log("hello when response data true");
           }
         }}
       >
