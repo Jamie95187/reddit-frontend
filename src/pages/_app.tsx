@@ -9,7 +9,7 @@ import theme from '../theme'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider>
+    <Provider value={client}>
       <ChakraProvider resetCSS theme={theme}>
         <ColorModeProvider
           options={{
