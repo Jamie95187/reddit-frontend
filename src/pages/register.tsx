@@ -32,6 +32,7 @@ const Register: React.FC<registerProps> = ({}) => {
         onSubmit={async (values, {setErrors}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser(values);
+          console.log(repsonse);
           if (response.data?.createUser.errors) {
             console.log("hey Im an error");
             setErrors(toErrorMap(response.data.register.errors));
