@@ -117,7 +117,7 @@ export type CreateUserMutation = (
 
 
 export const CreateUserDocument = gql`
-    mutation createUser($username: String!, $password: String!) {
+    mutation CreateUser($username: String!, $password: String!) {
   createUser(options: {username: $username, password: $password}) {
     errors {
       field

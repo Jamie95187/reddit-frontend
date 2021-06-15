@@ -5,11 +5,12 @@ import { Formik, Form } from 'formik';
 import { Button, Box, FormControl, FormLabel, Input, FormErrorMessage } from "@chakra-ui/react";
 import { useMutation } from 'urql';
 import { useCreateUserMutation } from "../generated/graphql";
+import { toErrorMap } from "../utils/toErrorMap";
 
 interface registerProps {}
 
 const CREATEUSER_MUT = `
-  mutation createUser($username: String!, $password:String!){
+  mutation CreateUser($username: String!, $password:String!){
   createUser(options: {username:$username, password:$password}) {
     errors {
       field
@@ -32,13 +33,12 @@ const Register: React.FC<registerProps> = ({}) => {
         onSubmit={async (values, {setErrors}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser(values);
-          console.log(repsonse);
+          console.log(response.data.createUser);
           if (response.data?.createUser.errors) {
-            console.log("hey Im an error");
-            setErrors(toErrorMap(response.data.register.errors));
-            // setErrors({
-            //   username: "hey Im an error",
-            // })
+            // setErrors(toErrorMap(response.data.createUser.errors));
+            setErrors({
+              username: "hey Im an error",
+            })
           }
         }}
       >

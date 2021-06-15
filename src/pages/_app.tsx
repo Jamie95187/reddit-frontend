@@ -2,7 +2,7 @@ import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react';
 import { Provider, createClient } from 'urql';
 
 const client = createClient({
-  url: 'http://localhost:8000/graphql',
+  url: 'http://localhost:8080/graphql',
 });
 
 import theme from '../theme'
