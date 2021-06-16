@@ -36,9 +36,9 @@ const Register: React.FC<registerProps> = ({}) => {
           console.log(response.data.createUser);
           if (response.data?.createUser.errors) {
             // setErrors(toErrorMap(response.data.createUser.errors));
-            setErrors({
-              username: "hey Im an error",
-            })
+            // setErrors({
+            //   username: "hey Im an error",
+            // })
           }
         }}
       >
