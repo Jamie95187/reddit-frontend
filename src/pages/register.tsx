@@ -30,15 +30,16 @@ const Register: React.FC<registerProps> = ({}) => {
     <Wrapper variant='small'>
       <Formik
         initialValues={{ username: "", password: "" }}
-        onSubmit={async (values, {setErrors}) => {
+        onSubmit={async (values, {setStatus}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser(values);
           console.log(response.data.createUser);
           if (response.data?.createUser.errors) {
-            // setErrors(toErrorMap(response.data.createUser.errors));
+            setStatus(toErrorMap(response.data.createUser.errors));
             // setErrors({
             //   username: "hey Im an error",
             // })
+            setValues(toErrorMap(response.data.createUser.errors));
           }
         }}
       >
