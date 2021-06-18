@@ -34,11 +34,9 @@ const Register: React.FC<registerProps> = ({}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser(values);
           if (response.data?.createUser.errors) {
-            setStatus(toErrorMap(response.data.createUser.errors));
+            // setStatus(toErrorMap(response.data.createUser.errors));
             console.log("henlo from inside error");
-            // setErrors({
-            //   username: "hey Im an error",
-            // })
+            console.log(toErrorMap(response.data.createUser.errors));
           }
         }}
       >
