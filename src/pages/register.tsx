@@ -33,13 +33,12 @@ const Register: React.FC<registerProps> = ({}) => {
         onSubmit={async (values, {setStatus}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser(values);
-          console.log(response.data.createUser);
           if (response.data?.createUser.errors) {
             setStatus(toErrorMap(response.data.createUser.errors));
+            console.log("henlo from inside error");
             // setErrors({
             //   username: "hey Im an error",
             // })
-            setValues(toErrorMap(response.data.createUser.errors));
           }
         }}
       >
