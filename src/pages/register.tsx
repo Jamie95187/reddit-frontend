@@ -6,6 +6,7 @@ import { Button, Box, FormControl, FormLabel, Input, FormErrorMessage } from "@c
 import { useMutation } from 'urql';
 import { useCreateUserMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
+import { useRouter } from "next/router";
 
 interface registerProps {}
 
@@ -25,6 +26,7 @@ const CREATEUSER_MUT = `
 `
 
 const Register: React.FC<registerProps> = ({}) => {
+  const router = useRouter();
   const [,createUser] = useCreateUserMutation(CREATEUSER_MUT);
   return (
     <Wrapper variant='small'>
@@ -36,7 +38,13 @@ const Register: React.FC<registerProps> = ({}) => {
           if (response.data?.createUser.errors) {
             // setStatus(toErrorMap(response.data.createUser.errors));
             console.log("henlo from inside error");
-            console.log(toErrorMap(response.data.createUser.errors));
+            // console.log(toErrorMap(response.data.createUser.errors));
+          } else if (response.data?.createUser.user) {
+            // console.log(response);
+            console.log("hello");
+            // worked created user and stored cookie
+            // navigate to home page
+            router.push("/")
           }
         }}
       >
