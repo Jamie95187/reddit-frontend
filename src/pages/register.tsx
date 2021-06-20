@@ -41,7 +41,7 @@ const Register: React.FC<registerProps> = ({}) => {
             // console.log(toErrorMap(response.data.createUser.errors));
           } else if (response.data?.createUser.user) {
             // console.log(response);
-            console.log("hello");
+            console.log("hello correctly created user");
             // worked created user and stored cookie
             // navigate to home page
             router.push("/")
