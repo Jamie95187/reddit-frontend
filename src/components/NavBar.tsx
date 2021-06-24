@@ -1,21 +1,47 @@
 import React from 'react';
-import { Box, Link, Flex } from '@chakra-ui/react';
+import { Box, Link, Flex, Button } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useMeQuery } from "../generated/graphql";
 
 interface NavBarProps {
 
 }
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
+  const [{data, fetching}] = useMeQuery();
+  let body = null;
+  console.log(data);
+  // data is loading
+  if (fetching) {
+
+    // user not logged in
+  } else if (!data?.me) {
+    console.log("user not logged in");
+    body = (
+      <>
+        <NextLink href="/login">
+          <Link colour='white' mr={2}> login </Link>
+        </NextLink>
+        <NextLink href="/register">
+          <Link colour='white'> register </Link>
+        </NextLink>
+      </>
+    );
+    // user is logged in
+  } else {
+    console.log("user logged in");
+    body = (
+      <Box>
+        <Box>{data.me.username}</Box>
+        <Button> logout </Button>
+      </Box>
+    )
+  }
+
   return (
     <Flex bg='salmon' p={4} ml={"auto"}>
       <Box ml={"auto"}>
-      <NextLink href="/login">
-        <Link colour='white' mr={2}> login </Link>
-      </NextLink>
-      <NextLink href="/register">
-        <Link colour='white'> register </Link>
-      </NextLink>
+      {body}
       </Box>
     </Flex>
   )
