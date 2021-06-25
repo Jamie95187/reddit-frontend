@@ -10,7 +10,7 @@ interface NavBarProps {
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const [{data, fetching}] = useMeQuery();
   let body = null;
-  console.log(data);
+
   // data is loading
   if (fetching) {
 
@@ -31,17 +31,17 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     console.log("user logged in");
     body = (
-      <Box>
-        <Box>{data.me.username}</Box>
-        <Button> logout </Button>
-      </Box>
+      <Flex>
+        <Box mr={3}>{data.me.username}</Box>
+        <Button variant="link">logout</Button>
+      </Flex>
     )
   }
 
   return (
-    <Flex bg='salmon' p={4} ml={"auto"}>
+    <Flex bg='teal' p={4} ml={"auto"}>
       <Box ml={"auto"}>
-      {body}
+        {body}
       </Box>
     </Flex>
   )
