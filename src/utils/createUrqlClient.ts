@@ -5,6 +5,9 @@ import { betterUpdateQuery } from "./betterUpdateQuery";
 
 export const createUrqlClient = (ssrExchange: any) => ({
   url: 'http://localhost:8080/graphql',
+  fetchOptions: {
+    credentials: "include" as const,
+  },
   exchanges: [dedupExchange, cacheExchange({
     updates: {
       Mutation: {
