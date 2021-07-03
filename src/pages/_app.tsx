@@ -1,12 +1,73 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { Provider } from 'urql';
+import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react';
+import { Provider, createClient, dedupExchange, fetchExchange } from 'urql';
+import { cacheExchange, Cache } from '@urql/exchange-graphcache';
 import theme from '../theme'
+import { MeDocument } from "../generated/graphql";
+import { betterUpdateQuery } from "../utils/betterUpdateQuery";
+
+const client = createClient({
+  url: 'http://localhost:8080/graphql',
+  exchanges: [dedupExchange, cacheExchange({
+    updates: {
+      Mutation: {
+        logout: (_result, args, cache, info) => {
+          // me query
+          betterUpdateQuery<LogoutMutation, MeQuery>(
+            cache,
+            { query: MeDocument },
+            _result,
+            () => ({ me: null })
+          );
+        },
+        login: (_result, args, cache, info) => {
+          betterUpdateQuery<LoginMutation, MeQuery> (cache,
+              {query: MeDocument},
+              _result,
+              (result, query) => {
+                if (result.login.errors) {
+                  return query
+                } else {
+                  return {
+                    me: result.login.user,
+                  };
+                }
+              }
+          );
+        },
+
+        createUser: (_result, args, cache, info) => {
+          betterUpdateQuery<CreateUserMutation, MeQuery> (cache,
+              {query: MeDocument},
+              _result,
+              (result, query) => {
+                if (result.createUser.errors) {
+                  return query
+                } else {
+                  return {
+                    me: result.createUser.user,
+                  };
+                }
+              }
+          );
+        },
+      },
+    },
+  }), fetchExchange]
+});
 
 function MyApp({ Component, pageProps }) {
   return (
-      <ChakraProvider>
-        <Component {...pageProps} />
+    <Provider value={client}>
+      <ChakraProvider resetCSS theme={theme}>
+        <ColorModeProvider
+          options={{
+            useSystemColorMode: true,
+          }}
+        >
+          <Component {...pageProps} />
+        </ColorModeProvider>
       </ChakraProvider>
+    </Provider>
   )
 }
 
