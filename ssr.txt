@@ -1,0 +1,11 @@
+Explanation of server side rendering
+if the data needs to found on google tend to use ssr
+only need ssr if information is dynamic for example getting posts data
+
+only need ssr if you are doing queries
+
+me -> browser http://localhost:3000
+-> next.js server
+-> request graphql server localhost:8080
+-> buidling the HTML
+-> sending back to your browser
