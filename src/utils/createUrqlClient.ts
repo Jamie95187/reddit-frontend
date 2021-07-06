@@ -39,7 +39,7 @@ export const createUrqlClient = (ssrExchange: any) => ({
         createUser: (_result, args, cache, info) => {
           betterUpdateQuery<CreateUserMutation, MeQuery> (cache,
               {query: MeDocument},
-              result,
+              _result,
               (result, query) => {
                 if (result.createUser.errors) {
                   return query
