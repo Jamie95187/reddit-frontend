@@ -16,11 +16,11 @@ const Login: React.FC<{}> = ({}) => {
   return (
     <Wrapper variant='small'>
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ usernameOrEmail: "", password: "" }}
         onSubmit={async (values) => {
           [{field: 'username', message: 'something wrong'}]
           try {
-            const response = await login( { options: values } );
+            const response = await login(values);
               if (response.data?.login.errors) {
                 // setStatus(toErrorMap(response.data.createUser.errors));
                 console.log("henlo from inside login error");
@@ -40,9 +40,9 @@ const Login: React.FC<{}> = ({}) => {
       {( {isSubmitting} ) => (
         <Form>
           <InputField
-            name="username"
-            placeholder="username"
-            label="Username"
+            name="usernameOrEmail"
+            placeholder="username or email"
+            label="Username or Email"
           />
           <Box mt={4}>
             <InputField

@@ -33,10 +33,10 @@ const Register: React.FC<registerProps> = ({}) => {
   return (
     <Wrapper variant='small'>
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{email: "", username: "", password: "" }}
         onSubmit={async (values, {setStatus}) => {
           [{field: 'username', message: 'something wrong'}]
-          const response = await createUser(values);
+          const response = await createUser({ options: values });
           if (response.data?.createUser.errors) {
             // setStatus(toErrorMap(response.data.createUser.errors));
             console.log("henlo from inside error");
@@ -57,6 +57,13 @@ const Register: React.FC<registerProps> = ({}) => {
             placeholder="username"
             label="Username"
           />
+          <Box mt={4}>
+            <InputField
+              name="email"
+              placeholder="email"
+              label="email"
+            />
+          </Box>
           <Box mt={4}>
             <InputField
               name="password"
