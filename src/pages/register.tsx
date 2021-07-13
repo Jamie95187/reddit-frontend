@@ -13,8 +13,8 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 interface registerProps {}
 
 const CREATEUSER_MUT = `
-  mutation CreateUser($username: String!, $password:String!){
-  createUser(options: {username:$username, password:$password}) {
+  mutation CreateUser($email: String!, $username: String!, $password:String!){
+  createUser(options: {$email:$email, username:$username, password:$password}) {
     errors {
       field
       message
@@ -38,6 +38,7 @@ const Register: React.FC<registerProps> = ({}) => {
           [{field: 'username', message: 'something wrong'}]
           const response = await createUser({ options: values });
           if (response.data?.createUser.errors) {
+            console.log(response.data?.createUser.errors);
             // setStatus(toErrorMap(response.data.createUser.errors));
             console.log("henlo from inside error");
             // console.log(toErrorMap(response.data.createUser.errors));
@@ -47,6 +48,9 @@ const Register: React.FC<registerProps> = ({}) => {
             // worked created user and stored cookie
             // navigate to home page
             router.push("/")
+          } else {
+            console.log("??WTF??");
+            console.log(response.data);
           }
         }}
       >
