@@ -3,7 +3,6 @@ import { Wrapper } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { Formik, Form } from 'formik';
 import { Button, Box } from "@chakra-ui/react";
-import { useMutation } from 'urql';
 import { useCreateUserMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
@@ -12,24 +11,9 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 
 interface registerProps {}
 
-const CREATEUSER_MUT = `
-  mutation CreateUser($email: String!, $username: String!, $password:String!){
-  createUser(options: {$email:$email, username:$username, password:$password}) {
-    errors {
-      field
-      message
-    }
-    user {
-      id
-      username
-    }
-  }
-}
-`
-
 const Register: React.FC<registerProps> = ({}) => {
   const router = useRouter();
-  const [,createUser] = useCreateUserMutation(CREATEUSER_MUT);
+  const [,createUser] = useCreateUserMutation();
   return (
     <Wrapper variant='small'>
       <Formik
