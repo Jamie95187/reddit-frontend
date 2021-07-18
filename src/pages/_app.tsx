@@ -1,8 +1,6 @@
 import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react';
-import { Provider, createClient, dedupExchange, fetchExchange } from 'urql';
-import { cacheExchange, Cache } from '@urql/exchange-graphcache';
+import { Provider } from 'urql';
 import theme from '../theme'
-import { MeDocument } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 
 function MyApp({ Component, pageProps }) {
